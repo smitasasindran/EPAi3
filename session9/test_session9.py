@@ -1,7 +1,7 @@
 import pytest
 from decimal import  *
 
-from .session9 import profiles_summary_named_tuples, profiles_summary_dict
+from session9 import profiles_summary_named_tuples, profiles_summary_dict
 
 def test_profiles_named_tuples():
     mean_age, oldest, lat, lng, max_bt, time_elapsed = profiles_summary_named_tuples(10000)
