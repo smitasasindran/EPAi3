@@ -3,6 +3,7 @@ from datetime import datetime, date
 from dateutil.relativedelta import relativedelta
 from collections import namedtuple
 from time import perf_counter
+import random
 
 
 Person = namedtuple("Person", "age location blood_type")
@@ -36,16 +37,19 @@ def get_profiles(n, make_tuple=False):
     profiles = []
 
     for i in range(n):
-        profile = faker.simple_profile()
-        location = faker.latlng()
+        # profile = faker.simple_profile()
+        # location = faker.latlng()
+        profile = faker.profile()
+        location = profile['current_location']
+        blood_type = profile['blood_group']
 
         birthdate = profile['birthdate']
         now = date.today()
         age = relativedelta(now, birthdate).years
 
-        btype_sign = '+' if faker.pybool() else '-'
-        btype = faker.random_element(elements=btypes)
-        blood_type = btype_sign + btype
+        # btype_sign = '+' if faker.boolean(chance_of_getting_true=70) else '-'
+        # btype = faker.random_element(elements=btypes)
+        # blood_type = btype_sign + btype
 
         if make_tuple:
            person = Person(age, location, blood_type)
@@ -164,16 +168,54 @@ def profiles_summary_dict(n=10000, debug=True):
     return mean_age, oldest, lat, lng, max_bt, time_elapsed
 
 
+def get_stocks(n):
+    """
+    This function creates 'n' dummy stock listings
+    """
+    Faker.seed(0)
+    faker = Faker()
+    Stock = namedtuple("Stock", "name symbol open high close")
+    stocks = []
+
+    for i in range(n):
+        company = faker.company()
+
+        open = random.random() * random.randint(100, 1000)
+        high = open * random.randint(1, 10)
+        close = random.random() * random.randint(100, 1000)
+
+        up = company.upper().replace(" ", "").replace(".", "").replace(",", "").replace('-', "")
+        symbol = "".join(faker.random_choices(up,length=3))
+
+        stock = Stock(company, symbol, open, high, close)
+        stocks.append(stock)
+
+    return stocks
+
 def stock_market(n):
     """
-    Create fake data (you can use Faker for company names) for imaginary stock exchange for
-    top 100 companies (name, symbol, open, high, close). Assign a random weight to all the companies.
-    Calculate and show what value the stock market started at, what was the highest value during the day,
-    and where did it end. Make sure your open, high, close are not totally random.
-    You can only use namedtuple. - 500  (including 10 test cases)
-
+    This function creates a stock exchange with n imaginary companies, and calculates
+    what value the stock market started at, what was the highest value during the day,
+    and where did it end.
     """
 
-    pass
+    stocks = get_stocks(n)
+    open = 0
+    high = 0
+    close = 0
+
+    print('Sample stock: ', stocks[:2])
+    for stock in stocks:
+        open += stock.open
+        close += stock.close
+
+        if high <= stock.high:
+            high = stock.high
+
+    mean_open = open / n
+    mean_close = close / n
+
+    return open, close, mean_open, mean_close, high
+
 
 
