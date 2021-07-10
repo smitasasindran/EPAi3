@@ -56,8 +56,8 @@ def get_profiles(n, make_tuple=False):
 
     return profiles
 
-@timed(1)
-def get_summary_named_tuples(n, profiles, debug=True):
+@timed(10)
+def get_summary_named_tuples(n, profiles):
     """
     This function calcuates the mean age, oldest age, latitude, longitude and max blood type
     where the input is a  list of named tuples
@@ -80,19 +80,11 @@ def get_summary_named_tuples(n, profiles, debug=True):
 
     mean_age, lat, lng, max_bt = calculate(n, age, lat, lng, blood_type_counts)
 
-    if debug:
-        print("\n ==== Profiles with Named Tuples function: === ")
-        print("Mean age: ", mean_age)
-        print( "Oldest age: ", oldest)
-        print(f'Latitude/Longitude: ({lat}, {lng}), ')
-        print("Blood type counts: ", blood_type_counts)
-        print("Max blood type: ", max_bt)
-
     return mean_age, oldest, lat, lng, max_bt
 
 
-@timed(1)
-def get_summary_dict(n, profiles, debug=True):
+@timed(10)
+def get_summary_dict(n, profiles):
     """
         This function calcuates the mean age, oldest age, latitude, longitude and max blood type
         where the input is a list of dictionaries
@@ -115,14 +107,6 @@ def get_summary_dict(n, profiles, debug=True):
 
     mean_age, lat, lng, max_bt = calculate(n, age, lat, lng, blood_type_counts)
 
-    if debug:
-        print("\n ==== Profiles with Dictionaries function: === ")
-        print("Mean age: ", mean_age)
-        print( "Oldest age: ", oldest)
-        print(f'Latitude/Longitude: ({lat}, {lng}), ')
-        print("Blood type counts: ", blood_type_counts)
-        print("Max blood type: ", max_bt)
-
     return mean_age, oldest, lat, lng, max_bt
 
 
@@ -142,10 +126,19 @@ def profiles_summary_named_tuples(n=10000, debug=True):
     the largest blood type, mean-current_location, oldest_person_age, and average age
     """
     profiles = get_profiles(n, make_tuple=True)
-    result = get_summary_named_tuples(n, profiles, debug)
+    result = get_summary_named_tuples(n, profiles)
     mean_age, oldest, lat, lng, max_bt = result[0]
     time_elapsed = result[1]
-    print("Time taken for named tuples: ", time_elapsed)
+
+    if debug:
+        print("\n ==== Profiles with Named Tuples function: === ")
+        print("Mean age: ", mean_age)
+        print("Oldest age: ", oldest)
+        print(f'Latitude/Longitude: ({lat}, {lng}), ')
+        # print("Blood type counts: ", blood_type_counts)
+        print("Max blood type: ", max_bt)
+        print("Time taken for named tuples: ", time_elapsed)
+
     return mean_age, oldest, lat, lng, max_bt, time_elapsed
 
 
@@ -155,14 +148,23 @@ def profiles_summary_dict(n=10000, debug=True):
     the largest blood type, mean-current_location, oldest_person_age, and average age
     """
     profiles = get_profiles(n, make_tuple=False)
-    result = get_summary_dict(n, profiles, debug)
+    result = get_summary_dict(n, profiles)
     mean_age, oldest, lat, lng, max_bt = result[0]
     time_elapsed = result[1]
-    print("Time taken for dict: ", time_elapsed)
+
+    if debug:
+        print("\n ==== Profiles with Dictionaries function: === ")
+        print("Mean age: ", mean_age)
+        print( "Oldest age: ", oldest)
+        print(f'Latitude/Longitude: ({lat}, {lng}), ')
+        # print("Blood type counts: ", blood_type_counts)
+        print("Max blood type: ", max_bt)
+        print("Time taken for dict: ", time_elapsed)
+
     return mean_age, oldest, lat, lng, max_bt, time_elapsed
 
 
-def stock_market():
+def stock_market(n):
     """
     Create fake data (you can use Faker for company names) for imaginary stock exchange for
     top 100 companies (name, symbol, open, high, close). Assign a random weight to all the companies.
