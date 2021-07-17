@@ -1,7 +1,7 @@
 import pytest
 
 from polygon import Polygon
-from custom_polygon import CustomPolygonSequencer
+from custom_polygon_sequencer import CustomPolygonSequencer
 
 
 def test_polygon_angle():
