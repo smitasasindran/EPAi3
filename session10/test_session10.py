@@ -1,7 +1,7 @@
 import pytest
 
 from polygon import Polygon
-from custom_polygon import CustomPolygon
+from custom_polygon import CustomPolygonSequencer
 
 
 def test_polygon_angle():
@@ -64,8 +64,8 @@ def test_polygon_gt():
     assert (p4 > p1) == False
 
 def test_polygon_seq():
-    custom1 = CustomPolygon(5, 7)
-    print("Custom Polygon sequence: ", list(custom1))
+    custom1 = CustomPolygonSequencer(5, 7)
+    print("Test 1 Custom Polygon sequence: ", list(custom1))
     p1 = custom1[0]
     p2 = custom1[1]
     p3 = custom1[2]
@@ -76,10 +76,13 @@ def test_polygon_seq():
     assert p3.circumradius == 7
 
 def test_polygon_seq_max_efficiency():
-    custom1 = CustomPolygon(5, 7)
-    print("Custom Polygon sequence: ", list(custom1))
+    custom1 = CustomPolygonSequencer(5, 7)
+    print("Test 2 Custom Polygon sequence: ", list(custom1))
 
-    max_ratio = custom1.max_efficiency_polygon()
-    print(max_ratio)
-    assert max_ratio == 3.1533910376584675
+    max_ratio, index = custom1.max_efficiency_polygon()
+    pmax = custom1[index]
+
+    assert max_ratio == 2.831559480312316
+    assert index == 5 - 3
+    assert pmax.no_of_vertices == 5
 
