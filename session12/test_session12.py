@@ -4,7 +4,7 @@ import math
 from polygon import Polygon
 from polygon_sequencer import Polygons
 
-
+# =================================
 # Test cases from class
 def test_polygon():
     abs_tol = 0.001
@@ -91,7 +91,6 @@ def test_polygon():
 # =================================
 # Testing that old functions from Assignment 11 are still working as before
 
-
 def test_polygon_iteratble():
     # Test that PolygonSequencer is an iterable that can be iterated upon multiple times
     polygons = Polygons(5, 7)
@@ -138,5 +137,35 @@ def test_polygon_iteratble():
     assert loop2_p1 == loop3_p1
     print("End of test 1\n\n")
 
+
+# =================================
+# Testing that old functions from Assignment 10 are still working as before
+
+
+def test_polygon_seq():
+    polygons = Polygons(5, 7)
+    print("\nTest 2 Custom Polygon sequence: ", list(polygons))
+    p1 = polygons[0]
+    p2 = polygons[1]
+    p3 = polygons[2]
+    assert p1.count_vertices == 3
+    assert p1.circumradius == 7
+
+    assert p3.count_vertices == 5
+    assert p3.circumradius == 7
+
+    assert len(polygons) == polygons.n
+    print("End of test 2\n")
+
+def test_polygon_seq_max_efficiency():
+    polygons = Polygons(5, 7)
+    print("\nTest 3 Custom Polygon sequence: ", list(polygons))
+
+    max_ratio, index = polygons.max_efficiency_polygon()
+    pmax = polygons[index]
+
+    assert max_ratio == 2.831559480312316
+    assert index == 5 - 3
+    assert pmax.count_vertices == 5
 
 

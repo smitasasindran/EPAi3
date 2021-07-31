@@ -16,11 +16,14 @@ class Polygons:
 
         self.n = n - 2
         self.circumradius = r
-        self.polygons = self.get_polygons()
-        # print("Polygons are: ", self.polygons)
+        # self.polygons = self.get_polygons()
 
     def max_efficiency_polygon(self):
-        area_perimeter_ratio = [(polygon.efficiency, i) for i, polygon in enumerate(self.polygons)]
+        # area_perimeter_ratio = [(polygon.efficiency, i) for i, polygon in enumerate(self.polygons)]
+        polygons = self.get_polygons()
+        print("Polygons are: ", polygons)
+
+        area_perimeter_ratio = [(polygon.efficiency, i) for i, polygon in enumerate(polygons)]
         return max(area_perimeter_ratio)
 
     def get_polygons(self):
@@ -51,7 +54,7 @@ class Polygons:
             return [Polygons._polygon(i, self.circumradius) for i in rng]
 
     @staticmethod
-    @lru_cache(2 ** 5)
+    # @lru_cache(2 ** 5)
     def _polygon(n, r):
         # Polygon sequence starts from 3. ie polygon at position 0 will have 3 sides, ... etc
         polygon = Polygon(n + 3, r)
@@ -71,10 +74,12 @@ class Polygons:
         def __next__(self):
             print("Calling PolygonIterator __next__ function: index=", self._index)
 
-            if self._index >= len(self._polygon_obj.polygons):
+            # if self._index >= len(self._polygon_obj.polygons):
+            if self._index >= self._polygon_obj.n:
                 raise StopIteration
             else:
-                item = self._polygon_obj.polygons[self._index]
+                # item = self._polygon_obj.polygons[self._index]
+                item = self._polygon_obj._polygon(self._index, self._polygon_obj.circumradius)
                 self._index += 1
                 return item
 
