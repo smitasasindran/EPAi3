@@ -41,3 +41,6 @@ jobs:
     - name: session11 Test with pytest
       run: |
         pytest -s session11
+    - name: session12 Test with pytest
+      run: |
+        pytest -s session12
