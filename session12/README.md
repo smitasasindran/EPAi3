@@ -62,5 +62,7 @@ It is defined in polygon_sequencer.py
 Link to colab notebook: https://colab.research.google.com/drive/1WEJ2x8hWT1Y63DwC2BAZ6vvmv3hoetoT?usp=sharing
 
 Github actions: 
-https://github.com/smitasasindran/EPAi3/runs/3153331214?check_suite_focus=true
+https://github.com/smitasasindran/EPAi3/runs/3207166356?check_suite_focus=true
+
+
 
