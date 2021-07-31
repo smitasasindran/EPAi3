@@ -1,4 +1,4 @@
-### Assignment 10: Sequences
+### Assignment 11: Iterators and Iterables
 
 Submitted by:   
 Smita Sasindran (smitasasindran@gmail.com)
